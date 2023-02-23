@@ -1,37 +1,42 @@
 // TODO: Include packages needed for this application
 const inquirer = require('inquirer');
 const fs = require('fs/promises');
+const Manager = require('./lib/manager');
+const Engineer = require('./lib/engineer');
+const Intern = require('./lib/intern');
 
+const employees = [];
 // TODO: Create an array of questions for user input
-// const questions = [
-//   {
-//     type: 'input',
-//     name: 'name',
-//     message: 'PLease, enter the team manager’s name.',
-//     validate: answer => {
-//       if (answer === '') {
-//         return 'Please enter a name.';
-//       }
-//       return true;
-//     },
-//   },
+const questions = [
+  {
+    type: 'input',
+    name: 'managerName',
+    message: 'PLease, enter the team manager’s name.',
+    validate: answer => {
+      if (answer === '') {
+        return 'Please enter a name.';
+      }
+      return true;
+    },
+  },
 
-//   {
-//     type: 'input',
-//     name: 'employeeID',
-//     message: 'PLease, enter the employee ID.',
-//   },
-//   {
-//     type: 'input',
-//     name: 'email',
-//     message: 'PLease, enter the email address.',
-//   },
-//   {
-//     type: 'input',
-//     name: 'officeNumber',
-//     message: 'PLease, enter the office number.',
-//   },
-// ];
+  {
+    type: 'input',
+    name: 'employeeId',
+    message: 'PLease, enter the employee ID.',
+  },
+  {
+    type: 'input',
+    name: 'email',
+    message: 'PLease, enter the email address.',
+  },
+  {
+    type: 'input',
+    name: 'officeNumber',
+    message: 'PLease, enter the office number.',
+  },
+];
+//enter the team manager’s info
 
 inquirer
   .prompt(
@@ -39,13 +44,24 @@ inquirer
     questions,
   )
   .then(function (answers) {
-    // Use user feedback for... whatever!!
-    console.log(answers);
-    const html = generateHtml(answers);
-    console.log(html);
-    // const fileName = `${answers.title.toLowerCase().split(' ').join('')}.md`;
+    // console.log(answers);
+    const manager = new Manager(
+      answers.managerName,
+      answers.employeeId,
+      answers.email,
+      answers.officeNumber,
+    );
 
-    return fs.writeFile(`./dist/generated.html`, html);
+    employees.push(manager);
+
+    //ask for an employee
+    addEmployee();
+
+    // const html = generateHtml(answers);
+    // console.log(html);
+    // // const fileName = `${answers.title.toLowerCase().split(' ').join('')}.md`;
+
+    // return fs.writeFile(`./dist/generated.html`, html);
   })
   .catch(error => {
     console.error(error);
@@ -57,13 +73,13 @@ inquirer
   });
 
 // TODO: Create a function to generate markdown for README
-function generateHtml(employees) {
+function generateHtml() {
   const employeeHtml = employees.map(employee => {
     return `<div class="card d-flex m-4" style="width: 18rem">
   <div class="card-body">
     <div class="p-3 mb-2 bg-primary text-white bg-gradient">
       <h5 class="card-title">Card title</h5>
-      <h6 class="card-subtitle mb-2 text-white">Card subtitle</h6>
+      <h6 class="card-subtitle mb-2 text-white">${employee.managerName}</h6>
     </div>
     <ul class="list-group list-group-flush">
       <li class="list-group-item border">An item</li>
@@ -107,3 +123,41 @@ function generateHtml(employees) {
 </html>
 `;
 }
+
+function addEmployee() {
+  inquirer
+    .prompt([
+      {
+        type: 'list',
+        name: 'employeeType',
+        message: 'PLease, select an option.',
+        choices: ['Add Engineer', 'Add Intern', 'Finish'],
+      },
+    ])
+    .then(function (answers) {
+      console.log(answers);
+      switch (answers.employeeType) {
+        case 'Add Engineer':
+          addEngineer();
+          break;
+        case 'Add Intern':
+          addIntern();
+          break;
+        case 'Finish':
+        default:
+          const html = generateHtml();
+          fs.writeFile('index.html', html, err => {
+            if (!err) {
+              console.log('Success!');
+            } else {
+              console.log('File failed to write.', err);
+            }
+          });
+          break;
+      }
+    });
+}
+
+function addEngineer() {}
+
+function addIntern() {}
