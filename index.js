@@ -73,6 +73,7 @@ inquirer
   });
 
 // TODO: Create a function to generate markdown for README
+//use if (getRole())
 function generateHtml() {
   const employeeHtml = employees.map(employee => {
     return `<div class="card d-flex m-4" style="width: 18rem">
