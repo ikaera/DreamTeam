@@ -228,17 +228,18 @@ function addIntern() {
 //use if (getRole())
 function generateHtml() {
   if (employees.getRole() === 'manager') {
+    [{ name, id, email, officeNumber }] = employees;
     const employeeHtml = employees.map(employee => {
       return `<div class="card d-flex m-4" style="width: 18rem">
   <div class="card-body">
     <div class="p-3 mb-2 bg-primary text-white bg-gradient">
-      <h5 class="card-title">${}</h5>
-      <h6 class="card-subtitle mb-2 text-white">${}</h6>
+      <h5 class="card-title">${name}</h5>
+      <h6 class="card-subtitle mb-2 text-white">${employees.getRole()}</h6>
     </div>
     <ul class="list-group list-group-flush">
-      <li class="list-group-item border"> ID: ${} </li>
-      <li class="list-group-item border">Email: ${}</li>
-      <li class="list-group-item border">Office number: ${}</li>
+      <li class="list-group-item border"> ID: ${id} </li>
+      <li class="list-group-item border">Email: ${email}</li>
+      <li class="list-group-item border">Office number: ${officeNumber}</li>
     </ul>
     <!-- <a href="#" class="card-link">Card link</a> -->
     <!-- <a href="#" class="card-link">Another link</a> -->
@@ -246,17 +247,18 @@ function generateHtml() {
 </div>`;
     });
   } else if (employees.getRole() === 'Engineer') {
+    [{ name, id, email, github }] = employees;
     const employeeHtml = employees.map(employee => {
       return `<div class="card d-flex m-4" style="width: 18rem">
   <div class="card-body">
     <div class="p-3 mb-2 bg-primary text-white bg-gradient">
-      <h5 class="card-title">${}</h5>
-      <h6 class="card-subtitle mb-2 text-white">${}</h6>
+      <h5 class="card-title">${name}</h5>
+      <h6 class="card-subtitle mb-2 text-white">${employees.getRole()}</h6>
     </div>
     <ul class="list-group list-group-flush">
-      <li class="list-group-item border"> ID: ${} </li>
-      <li class="list-group-item border">Email: ${}</li>
-      <li class="list-group-item border">GitHub: ${}</li>
+      <li class="list-group-item border"> ID: ${id} </li>
+      <li class="list-group-item border">Email: ${email}</li>
+      <li class="list-group-item border">GitHub: ${github}</li>
     </ul>
     <!-- <a href="#" class="card-link">Card link</a> -->
     <!-- <a href="#" class="card-link">Another link</a> -->
@@ -264,17 +266,18 @@ function generateHtml() {
 </div>`;
     });
   } else if (employees.getRole() === 'Intern') {
+    [{ name, id, email, school }] = employees;
     const employeeHtml = employees.map(employee => {
       return `<div class="card d-flex m-4" style="width: 18rem">
   <div class="card-body">
     <div class="p-3 mb-2 bg-primary text-white bg-gradient">
-      <h5 class="card-title">${}</h5>
-      <h6 class="card-subtitle mb-2 text-white">${employee.managerName}</h6>
+      <h5 class="card-title">${name}</h5>
+      <h6 class="card-subtitle mb-2 text-white">${employees.getRole()}</h6>
     </div>
     <ul class="list-group list-group-flush">
-      <li class="list-group-item border"> ID: ${} </li>
-      <li class="list-group-item border">Email: ${}</li>
-      <li class="list-group-item border">School: ${}</li>
+      <li class="list-group-item border"> ID: ${id} </li>
+      <li class="list-group-item border">Email: ${email}</li>
+      <li class="list-group-item border">School: ${school}</li>
     </ul>
     <!-- <a href="#" class="card-link">Card link</a> -->
     <!-- <a href="#" class="card-link">Another link</a> -->
