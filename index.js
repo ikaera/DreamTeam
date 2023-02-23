@@ -11,10 +11,10 @@ const questions = [
   {
     type: 'input',
     name: 'managerName',
-    message: 'PLease, enter the team manager’s name.',
+    message: 'PLease, enter manager’s name:',
     validate: answer => {
       if (answer === '') {
-        return 'Please enter a name.';
+        return "Please enter the manager's name.";
       }
       return true;
     },
@@ -23,17 +23,17 @@ const questions = [
   {
     type: 'input',
     name: 'employeeId',
-    message: 'PLease, enter the employee ID.',
+    message: 'Please, enter his/her employee ID:',
   },
   {
     type: 'input',
     name: 'email',
-    message: 'PLease, enter the email address.',
+    message: 'Please, enter his/her email address:',
   },
   {
     type: 'input',
     name: 'officeNumber',
-    message: 'PLease, enter the office number.',
+    message: 'Please, enter his/her office number:',
   },
 ];
 //enter the team manager’s info
@@ -55,7 +55,7 @@ inquirer
     employees.push(manager);
 
     //ask for an employee
-    addEmployee();
+    promptChoice();
 
     // const html = generateHtml(answers);
     // console.log(html);
@@ -72,26 +72,216 @@ inquirer
     // }
   });
 
+function promptChoice() {
+  inquirer
+    .prompt([
+      {
+        type: 'list',
+        name: 'choice',
+        message: 'PLease, select an option:',
+        choices: ['Add an Engineer', 'Add an Intern', 'Exit'],
+      },
+    ])
+    .then(function (answers) {
+      console.log(answers);
+      switch (answers.choice) {
+        case 'Add an Engineer':
+          addEngineer();
+          promptChoice();
+          break;
+        case 'Add an Intern':
+          addIntern();
+          promptChoice();
+          break;
+        case 'Exit':
+        default:
+          const html = generateHtml();
+          fs.writeFile('index.html', html, err => {
+            if (!err) {
+              console.log('Success!');
+            } else {
+              console.log('File failed to write.', err);
+            }
+          });
+          break;
+      }
+    });
+}
+
+function addEngineer() {
+  inquirer
+    .prompt([
+      {
+        type: 'input',
+        name: 'name',
+        message: 'Please, enter the name:',
+        validate: answer => {
+          if (answer === '') {
+            return "Please enter the manager's name.";
+          }
+          return true;
+        },
+      },
+
+      {
+        type: 'input',
+        name: 'employeeId',
+        message: 'Please, enter his/her employee ID:',
+      },
+      {
+        type: 'input',
+        name: 'email',
+        message: 'Please, enter his/her email address:',
+      },
+      {
+        type: 'input',
+        name: 'github',
+        message: 'Please, enter his/her office number:',
+      },
+    ])
+    .then(function (answers) {
+      // console.log(answers);
+      const engineer = new Engineer(
+        answers.name,
+        answers.employeeId,
+        answers.email,
+        answers.github,
+      );
+
+      employees.push(engineer);
+
+      //ask for choices.
+      promptChoice();
+    })
+    .catch(error => {
+      console.error(error);
+      // if (error.isTryError) {
+      //   // Prompt couldn't be rendered in the current environment
+      // }else {
+      //   // Something else went wrong
+      // }
+    });
+}
+
+function addIntern() {
+  inquirer
+    .prompt([
+      {
+        type: 'input',
+        name: 'name',
+        message: 'Please, enter the name:',
+        validate: answer => {
+          if (answer === '') {
+            return "Please enter the manager's name.";
+          }
+          return true;
+        },
+      },
+
+      {
+        type: 'input',
+        name: 'employeeId',
+        message: 'Please, enter his/her employee ID:',
+      },
+      {
+        type: 'input',
+        name: 'email',
+        message: 'Please, enter his/her email address:',
+      },
+      {
+        type: 'input',
+        name: 'school',
+        message: 'Please, enter his/her office number:',
+      },
+    ])
+    .then(function (answers) {
+      // console.log(answers);
+      const intern = new Intern(
+        answers.name,
+        answers.employeeId,
+        answers.email,
+        answers.school,
+      );
+
+      employees.push(intern);
+
+      //ask for an employee
+      promptChoice();
+
+      // const html = generateHtml(answers);
+      // console.log(html);
+      // // const fileName = `${answers.title.toLowerCase().split(' ').join('')}.md`;
+
+      // return fs.writeFile(`./dist/generated.html`, html);
+    })
+    .catch(error => {
+      console.error(error);
+      // if (error.isTryError) {
+      //   // Prompt couldn't be rendered in the current environment
+      // }else {
+      //   // Something else went wrong
+      // }
+    });
+}
+
 // TODO: Create a function to generate markdown for README
 //use if (getRole())
 function generateHtml() {
-  const employeeHtml = employees.map(employee => {
-    return `<div class="card d-flex m-4" style="width: 18rem">
+  if (employees.getRole() === 'manager') {
+    const employeeHtml = employees.map(employee => {
+      return `<div class="card d-flex m-4" style="width: 18rem">
   <div class="card-body">
     <div class="p-3 mb-2 bg-primary text-white bg-gradient">
-      <h5 class="card-title">Card title</h5>
-      <h6 class="card-subtitle mb-2 text-white">${employee.managerName}</h6>
+      <h5 class="card-title">${}</h5>
+      <h6 class="card-subtitle mb-2 text-white">${}</h6>
     </div>
     <ul class="list-group list-group-flush">
-      <li class="list-group-item border">An item</li>
-      <li class="list-group-item border">A second item</li>
-      <li class="list-group-item border">A third item</li>
+      <li class="list-group-item border"> ID: ${} </li>
+      <li class="list-group-item border">Email: ${}</li>
+      <li class="list-group-item border">Office number: ${}</li>
     </ul>
     <!-- <a href="#" class="card-link">Card link</a> -->
     <!-- <a href="#" class="card-link">Another link</a> -->
   </div>
 </div>`;
-  });
+    });
+  } else if (employees.getRole() === 'Engineer') {
+    const employeeHtml = employees.map(employee => {
+      return `<div class="card d-flex m-4" style="width: 18rem">
+  <div class="card-body">
+    <div class="p-3 mb-2 bg-primary text-white bg-gradient">
+      <h5 class="card-title">${}</h5>
+      <h6 class="card-subtitle mb-2 text-white">${}</h6>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item border"> ID: ${} </li>
+      <li class="list-group-item border">Email: ${}</li>
+      <li class="list-group-item border">GitHub: ${}</li>
+    </ul>
+    <!-- <a href="#" class="card-link">Card link</a> -->
+    <!-- <a href="#" class="card-link">Another link</a> -->
+  </div>
+</div>`;
+    });
+  } else if (employees.getRole() === 'Intern') {
+    const employeeHtml = employees.map(employee => {
+      return `<div class="card d-flex m-4" style="width: 18rem">
+  <div class="card-body">
+    <div class="p-3 mb-2 bg-primary text-white bg-gradient">
+      <h5 class="card-title">${}</h5>
+      <h6 class="card-subtitle mb-2 text-white">${employee.managerName}</h6>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item border"> ID: ${} </li>
+      <li class="list-group-item border">Email: ${}</li>
+      <li class="list-group-item border">School: ${}</li>
+    </ul>
+    <!-- <a href="#" class="card-link">Card link</a> -->
+    <!-- <a href="#" class="card-link">Another link</a> -->
+  </div>
+</div>`;
+    });
+  }
   // console.log(data.license);
   return `
 <!DOCTYPE html>
@@ -124,41 +314,3 @@ function generateHtml() {
 </html>
 `;
 }
-
-function addEmployee() {
-  inquirer
-    .prompt([
-      {
-        type: 'list',
-        name: 'employeeType',
-        message: 'PLease, select an option.',
-        choices: ['Add Engineer', 'Add Intern', 'Finish'],
-      },
-    ])
-    .then(function (answers) {
-      console.log(answers);
-      switch (answers.employeeType) {
-        case 'Add Engineer':
-          addEngineer();
-          break;
-        case 'Add Intern':
-          addIntern();
-          break;
-        case 'Finish':
-        default:
-          const html = generateHtml();
-          fs.writeFile('index.html', html, err => {
-            if (!err) {
-              console.log('Success!');
-            } else {
-              console.log('File failed to write.', err);
-            }
-          });
-          break;
-      }
-    });
-}
-
-function addEngineer() {}
-
-function addIntern() {}
