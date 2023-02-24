@@ -56,12 +56,6 @@ inquirer
 
     //ask for an employee
     promptChoice();
-
-    // const html = generateHtml(answers);
-    // console.log(html);
-    // // const fileName = `${answers.title.toLowerCase().split(' ').join('')}.md`;
-
-    // return fs.writeFile(`./dist/generated.html`, html);
   })
   .catch(error => {
     console.error(error);
