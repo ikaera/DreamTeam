@@ -242,7 +242,7 @@ function generateHtml() {
       <div class="card-body">
         <div class="p-3 mb-2 bg-primary text-white bg-gradient">
           <h5 class="card-title">${name}</h5>
-          <h6 class="card-subtitle mb-2 text-white">${employees.getRole()}</h6>
+          <h6 class="card-subtitle mb-2 text-white">${employee.getRole()}</h6>
         </div>
         <ul class="list-group list-group-flush">
           <li class="list-group-item border"> ID: ${id} </li>
@@ -260,7 +260,7 @@ function generateHtml() {
       <div class="card-body">
         <div class="p-3 mb-2 bg-primary text-white bg-gradient">
           <h5 class="card-title">${name}</h5>
-          <h6 class="card-subtitle mb-2 text-white">${employees.getRole()}</h6>
+          <h6 class="card-subtitle mb-2 text-white">${employee.getRole()}</h6>
         </div>
         <ul class="list-group list-group-flush">
           <li class="list-group-item border"> ID: ${id} </li>
@@ -278,7 +278,7 @@ function generateHtml() {
       <div class="card-body">
         <div class="p-3 mb-2 bg-primary text-white bg-gradient">
           <h5 class="card-title">${name}</h5>
-          <h6 class="card-subtitle mb-2 text-white">${employees.getRole()}</h6>
+          <h6 class="card-subtitle mb-2 text-white">${employee.getRole()}</h6>
         </div>
         <ul class="list-group list-group-flush">
           <li class="list-group-item border"> ID: ${id} </li>
