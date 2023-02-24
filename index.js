@@ -5,13 +5,14 @@ const Manager = require('./lib/manager');
 const Engineer = require('./lib/engineer');
 const Intern = require('./lib/intern');
 
+//create an empty array to push the created instances in the future
 const employees = [];
 // TODO: Create an array of questions for user input
 const questions = [
   {
     type: 'input',
     name: 'managerName',
-    message: 'PLease, enter manager’s name:',
+    message: 'Please, enter manager’s name:',
     validate: answer => {
       if (answer === '') {
         return "Please enter the manager's name.";
@@ -37,7 +38,6 @@ const questions = [
   },
 ];
 //enter the team manager’s info
-
 inquirer
   .prompt(
     /* Pass your questions in here */
@@ -215,7 +215,6 @@ function addIntern() {
 function generateHtml() {
   const employeeHtml = employees.map(employee => {
     if (employee.getRole() === 'Manager') {
-      // const { name, id, email, officeNumber } = employee;
       // return the manager card html
       return `<div class="card d-flex m-4" style="width: 18rem">
       <div class="card-body">
@@ -234,7 +233,7 @@ function generateHtml() {
     </div>`;
     } else if (employee.getRole() === 'Intern') {
       // return the intern card html
-      // [{ name, id, email, school }] = employees;
+      // [{ name, id, email, school }] = employee;
       return `<div class="card d-flex m-4" style="width: 18rem">
       <div class="card-body">
         <div class="p-3 mb-2 bg-primary text-white bg-gradient">
@@ -252,7 +251,7 @@ function generateHtml() {
     </div>`;
     } else if (employee.getRole() === 'Engineer') {
       // return the engineer card html
-      // [{ name, id, email, github }] = employees;
+      // [{ name, id, email, github }] = employee;
       return `<div class="card d-flex m-4" style="width: 18rem">
       <div class="card-body">
         <div class="p-3 mb-2 bg-primary text-white bg-gradient">
