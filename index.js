@@ -136,7 +136,7 @@ function addEngineer() {
       {
         type: 'input',
         name: 'github',
-        message: 'Please, enter his/her office number:',
+        message: 'Please, enter his/her GitHub username',
       },
     ])
     .then(function (answers) {
@@ -191,7 +191,7 @@ function addIntern() {
       {
         type: 'input',
         name: 'school',
-        message: 'Please, enter his/her office number:',
+        message: 'What is his/her school please?',
       },
     ])
     .then(function (answers) {
@@ -218,38 +218,21 @@ function addIntern() {
     });
 }
 
-// TODO: Create a function to generate markdown for README
-//use if (getRole())
-
-// TA helped
-// employeeHTML = employeesArr.map(employee => {
-//   if (employee.getRole() === "Manager") {
-//     // return the manager card html
-//   } else if (employee.getRole() === "Intern") {
-//     // return the intern card html
-//   } else if (employee.getRole() === "Engineer") {
-//     // return the engineer card html
-//   }
-// })
-//
-
 function generateHtml() {
   const employeeHtml = employees.map(employee => {
     if (employee.getRole() === 'Manager') {
-      [{ name, id, email, officeNumber }] = employees;
+      // const { name, id, email, officeNumber } = employee;
       // return the manager card html
       return `<div class="card d-flex m-4" style="width: 18rem">
       <div class="card-body">
         <div class="p-3 mb-2 bg-primary text-white bg-gradient">
-          <h5 class="card-title">${name}</h5>
+          <h5 class="card-title">${employee.getName()}</h5>
           <h6 class="card-subtitle mb-2 text-white">${employee.getRole()}</h6>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item border"> ID: ${employee.id} </li>
-          <li class="list-group-item border">Email: ${employee.email}</li>
-          <li class="list-group-item border">Office number: ${
-            employee.officeNumber
-          }</li>
+          <li class="list-group-item border"> ID: ${employee.getId()} </a> </li>
+          <li class="list-group-item border">Email: <a href="mailto:${employee.getEmail()}"> ${employee.getEmail()} </a> </li>
+          <li class="list-group-item border">Office number: ${employee.getOfficeNumber()}</li>
         </ul>
         <!-- <a href="#" class="card-link">Card link</a> -->
         <!-- <a href="#" class="card-link">Another link</a> -->
@@ -257,17 +240,17 @@ function generateHtml() {
     </div>`;
     } else if (employee.getRole() === 'Intern') {
       // return the intern card html
-      [{ name, id, email, school }] = employees;
+      // [{ name, id, email, school }] = employees;
       return `<div class="card d-flex m-4" style="width: 18rem">
       <div class="card-body">
         <div class="p-3 mb-2 bg-primary text-white bg-gradient">
-          <h5 class="card-title">${employee.name}</h5>
+          <h5 class="card-title">${employee.getName()}</h5>
           <h6 class="card-subtitle mb-2 text-white">${employee.getRole()}</h6>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item border"> ID: ${employee.id} </li>
-          <li class="list-group-item border">Email: ${employee.email}</li>
-          <li class="list-group-item border">School: ${employee.school}</li>
+          <li class="list-group-item border"> ID: ${employee.getId()} </li>
+          <li class="list-group-item border">Email: <a href="mailto:${employee.getEmail()}"> ${employee.getEmail()} </a> </li>
+          <li class="list-group-item border">School: ${employee.getSchool()}</li>
         </ul>
         <!-- <a href="#" class="card-link">Card link</a> -->
         <!-- <a href="#" class="card-link">Another link</a> -->
@@ -275,17 +258,17 @@ function generateHtml() {
     </div>`;
     } else if (employee.getRole() === 'Engineer') {
       // return the engineer card html
-      [{ name, id, email, github }] = employees;
+      // [{ name, id, email, github }] = employees;
       return `<div class="card d-flex m-4" style="width: 18rem">
       <div class="card-body">
         <div class="p-3 mb-2 bg-primary text-white bg-gradient">
-          <h5 class="card-title">${employee.name}</h5>
+          <h5 class="card-title">${employee.getName()}</h5>
           <h6 class="card-subtitle mb-2 text-white">${employee.getRole()}</h6>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item border"> ID: ${employee.id} </li>
-          <li class="list-group-item border">Email: ${employee.email}</li>
-          <li class="list-group-item border">GitHub: ${employee.github}</li>
+          <li class="list-group-item border"> ID: ${employee.getId()} </li>
+          <li class="list-group-item border">Email: <a href="mailto:${employee.getEmail()}"> ${employee.getEmail()} </a> </li>
+          <li class="list-group-item border">GitHub: <a href="https://github.com/${employee.getGithub()} "> ${employee.getGithub()} </a> </li>
         </ul>
         <!-- <a href="#" class="card-link">Card link</a> -->
         <!-- <a href="#" class="card-link">Another link</a> -->
