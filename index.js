@@ -87,11 +87,11 @@ function promptChoice() {
       switch (answers.choice) {
         case 'Add an Engineer':
           addEngineer();
-          promptChoice();
+          // promptChoice();
           break;
         case 'Add an Intern':
           addIntern();
-          promptChoice();
+          // promptChoice();
           break;
         case 'Exit':
         default:
@@ -207,12 +207,6 @@ function addIntern() {
 
       //ask for an employee
       promptChoice();
-
-      // const html = generateHtml(answers);
-      // console.log(html);
-      // // const fileName = `${answers.title.toLowerCase().split(' ').join('')}.md`;
-
-      // return fs.writeFile(`./dist/generated.html`, html);
     })
     .catch(error => {
       console.error(error);
@@ -226,94 +220,106 @@ function addIntern() {
 
 // TODO: Create a function to generate markdown for README
 //use if (getRole())
-function generateHtml() {
-  if (employees.getRole() === 'manager') {
-    [{ name, id, email, officeNumber }] = employees;
-    const employeeHtml = employees.map(employee => {
-      return `<div class="card d-flex m-4" style="width: 18rem">
-  <div class="card-body">
-    <div class="p-3 mb-2 bg-primary text-white bg-gradient">
-      <h5 class="card-title">${name}</h5>
-      <h6 class="card-subtitle mb-2 text-white">${employees.getRole()}</h6>
-    </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item border"> ID: ${id} </li>
-      <li class="list-group-item border">Email: ${email}</li>
-      <li class="list-group-item border">Office number: ${officeNumber}</li>
-    </ul>
-    <!-- <a href="#" class="card-link">Card link</a> -->
-    <!-- <a href="#" class="card-link">Another link</a> -->
-  </div>
-</div>`;
-    });
-  } else if (employees.getRole() === 'Engineer') {
-    [{ name, id, email, github }] = employees;
-    const employeeHtml = employees.map(employee => {
-      return `<div class="card d-flex m-4" style="width: 18rem">
-  <div class="card-body">
-    <div class="p-3 mb-2 bg-primary text-white bg-gradient">
-      <h5 class="card-title">${name}</h5>
-      <h6 class="card-subtitle mb-2 text-white">${employees.getRole()}</h6>
-    </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item border"> ID: ${id} </li>
-      <li class="list-group-item border">Email: ${email}</li>
-      <li class="list-group-item border">GitHub: ${github}</li>
-    </ul>
-    <!-- <a href="#" class="card-link">Card link</a> -->
-    <!-- <a href="#" class="card-link">Another link</a> -->
-  </div>
-</div>`;
-    });
-  } else if (employees.getRole() === 'Intern') {
-    [{ name, id, email, school }] = employees;
-    const employeeHtml = employees.map(employee => {
-      return `<div class="card d-flex m-4" style="width: 18rem">
-  <div class="card-body">
-    <div class="p-3 mb-2 bg-primary text-white bg-gradient">
-      <h5 class="card-title">${name}</h5>
-      <h6 class="card-subtitle mb-2 text-white">${employees.getRole()}</h6>
-    </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item border"> ID: ${id} </li>
-      <li class="list-group-item border">Email: ${email}</li>
-      <li class="list-group-item border">School: ${school}</li>
-    </ul>
-    <!-- <a href="#" class="card-link">Card link</a> -->
-    <!-- <a href="#" class="card-link">Another link</a> -->
-  </div>
-</div>`;
-    });
-  }
-  // console.log(data.license);
-  return `
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="./style.css" />
-    <title>DreamTeam</title>
-  </head>
-  <body class="border border-dark m-3">
-    <header
-      class="header d-flex justify-content-center p-3 m-2 bg-danger text-white"
-    >
-      <h1 class="main-header p-4">My Team</h1>
-    </header>
 
-    <main class="d-flex flex-wrap justify-content-center">
-      ${employeeHtml};
-    </main>
-    <footer></footer>
-  </body>
-</html>
-`;
+// TA helped
+// employeeHTML = employeesArr.map(employee => {
+//   if (employee.getRole() === "Manager") {
+//     // return the manager card html
+//   } else if (employee.getRole() === "Intern") {
+//     // return the intern card html
+//   } else if (employee.getRole() === "Engineer") {
+//     // return the engineer card html
+//   }
+// })
+//
+
+function generateHtml() {
+  const employeeHtml = employees.map(employee => {
+    if (employee.getRole() === 'Manager') {
+      [{ name, id, email, officeNumber }] = employees;
+      // return the manager card html
+      return `<div class="card d-flex m-4" style="width: 18rem">
+      <div class="card-body">
+        <div class="p-3 mb-2 bg-primary text-white bg-gradient">
+          <h5 class="card-title">${name}</h5>
+          <h6 class="card-subtitle mb-2 text-white">${employees.getRole()}</h6>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item border"> ID: ${id} </li>
+          <li class="list-group-item border">Email: ${email}</li>
+          <li class="list-group-item border">Office number: ${officeNumber}</li>
+        </ul>
+        <!-- <a href="#" class="card-link">Card link</a> -->
+        <!-- <a href="#" class="card-link">Another link</a> -->
+      </div>
+    </div>`;
+    } else if (employee.getRole() === 'Intern') {
+      // return the intern card html
+      [{ name, id, email, school }] = employees;
+      return `<div class="card d-flex m-4" style="width: 18rem">
+      <div class="card-body">
+        <div class="p-3 mb-2 bg-primary text-white bg-gradient">
+          <h5 class="card-title">${name}</h5>
+          <h6 class="card-subtitle mb-2 text-white">${employees.getRole()}</h6>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item border"> ID: ${id} </li>
+          <li class="list-group-item border">Email: ${email}</li>
+          <li class="list-group-item border">School: ${school}</li>
+        </ul>
+        <!-- <a href="#" class="card-link">Card link</a> -->
+        <!-- <a href="#" class="card-link">Another link</a> -->
+      </div>
+    </div>`;
+    } else if (employee.getRole() === 'Engineer') {
+      // return the engineer card html
+
+      return `<div class="card d-flex m-4" style="width: 18rem">
+      <div class="card-body">
+        <div class="p-3 mb-2 bg-primary text-white bg-gradient">
+          <h5 class="card-title">${name}</h5>
+          <h6 class="card-subtitle mb-2 text-white">${employees.getRole()}</h6>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item border"> ID: ${id} </li>
+          <li class="list-group-item border">Email: ${email}</li>
+          <li class="list-group-item border">GitHub: ${github}</li>
+        </ul>
+        <!-- <a href="#" class="card-link">Card link</a> -->
+        <!-- <a href="#" class="card-link">Another link</a> -->
+      </div>
+    </div>`;
+    }
+  });
+
+  return `
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+        crossorigin="anonymous"
+      />
+      <link rel="stylesheet" href="./style.css" />
+      <title>DreamTeam</title>
+    </head>
+    <body class="border border-dark m-3">
+      <header
+        class="header d-flex justify-content-center p-3 m-2 bg-danger text-white"
+      >
+        <h1 class="main-header p-4">My Team</h1>
+      </header>
+
+      <main class="d-flex flex-wrap justify-content-center">
+        ${employeeHtml};
+      </main>
+      <footer></footer>
+    </body>
+  </html>
+  `;
 }
