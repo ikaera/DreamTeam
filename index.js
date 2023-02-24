@@ -96,7 +96,7 @@ function promptChoice() {
         case 'Exit':
         default:
           const html = generateHtml();
-          fs.writeFile('index.html', html, err => {
+          fs.writeFile('./dist/index.html', html, err => {
             if (!err) {
               console.log('Success!');
             } else {
@@ -245,9 +245,11 @@ function generateHtml() {
           <h6 class="card-subtitle mb-2 text-white">${employee.getRole()}</h6>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item border"> ID: ${id} </li>
-          <li class="list-group-item border">Email: ${email}</li>
-          <li class="list-group-item border">Office number: ${officeNumber}</li>
+          <li class="list-group-item border"> ID: ${employee.id} </li>
+          <li class="list-group-item border">Email: ${employee.email}</li>
+          <li class="list-group-item border">Office number: ${
+            employee.officeNumber
+          }</li>
         </ul>
         <!-- <a href="#" class="card-link">Card link</a> -->
         <!-- <a href="#" class="card-link">Another link</a> -->
@@ -259,13 +261,13 @@ function generateHtml() {
       return `<div class="card d-flex m-4" style="width: 18rem">
       <div class="card-body">
         <div class="p-3 mb-2 bg-primary text-white bg-gradient">
-          <h5 class="card-title">${name}</h5>
+          <h5 class="card-title">${employee.name}</h5>
           <h6 class="card-subtitle mb-2 text-white">${employee.getRole()}</h6>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item border"> ID: ${id} </li>
-          <li class="list-group-item border">Email: ${email}</li>
-          <li class="list-group-item border">School: ${school}</li>
+          <li class="list-group-item border"> ID: ${employee.id} </li>
+          <li class="list-group-item border">Email: ${employee.email}</li>
+          <li class="list-group-item border">School: ${employee.school}</li>
         </ul>
         <!-- <a href="#" class="card-link">Card link</a> -->
         <!-- <a href="#" class="card-link">Another link</a> -->
@@ -273,17 +275,17 @@ function generateHtml() {
     </div>`;
     } else if (employee.getRole() === 'Engineer') {
       // return the engineer card html
-
+      [{ name, id, email, github }] = employees;
       return `<div class="card d-flex m-4" style="width: 18rem">
       <div class="card-body">
         <div class="p-3 mb-2 bg-primary text-white bg-gradient">
-          <h5 class="card-title">${name}</h5>
+          <h5 class="card-title">${employee.name}</h5>
           <h6 class="card-subtitle mb-2 text-white">${employee.getRole()}</h6>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item border"> ID: ${id} </li>
-          <li class="list-group-item border">Email: ${email}</li>
-          <li class="list-group-item border">GitHub: ${github}</li>
+          <li class="list-group-item border"> ID: ${employee.id} </li>
+          <li class="list-group-item border">Email: ${employee.email}</li>
+          <li class="list-group-item border">GitHub: ${employee.github}</li>
         </ul>
         <!-- <a href="#" class="card-link">Card link</a> -->
         <!-- <a href="#" class="card-link">Another link</a> -->
